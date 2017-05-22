@@ -26,6 +26,11 @@ class AttentionDecoder(Recurrent):
         encoder and outputs the decoded states 
         :param units: dimension of the hidden state and the attention matrices
         :param output_dim: the number of labels in the output space
+
+        references:
+            Bahdanau, Dzmitry, Kyunghyun Cho, and Yoshua Bengio. 
+            "Neural machine translation by jointly learning to align and translate." 
+            arXiv preprint arXiv:1409.0473 (2014).
         """
         self.units = units
         self.output_dim = output_dim
