@@ -50,7 +50,7 @@ def create_date():
                   3. date object.
     """
     dt = fake.date_object()
-    
+
     # wrapping this in a try catch because
     # the locale 'vo' and format 'full' will fail
     try:
@@ -64,7 +64,14 @@ def create_date():
 
     return human, machine, dt
 
+
 def create_dataset(dataset_name, n_examples, vocabulary=False):
+    """
+        Creates a csv dataset with n_examples and optional vocabulary
+        :param dataset_name: name of the file to save as
+        :n_examples: the number of examples to generate
+        :vocabulary: if true, will also save the vocabulary
+    """
     human_vocab = set()
     machine_vocab = set()
 
@@ -82,7 +89,7 @@ def create_dataset(dataset_name, n_examples, vocabulary=False):
     machine_vocab.add('<eot>')
 
     if vocabulary:
-        int2human = dict(enumerate(human_vocab))    
+        int2human = dict(enumerate(human_vocab))
         int2machine = dict(enumerate(machine_vocab))
         human2int = {v: k for k, v in int2human.items()}
         machine2int = {v: k for k, v in int2machine.items()}
@@ -93,5 +100,5 @@ def create_dataset(dataset_name, n_examples, vocabulary=False):
             json.dump(machine2int, f)
 
 if __name__ == '__main__':
-    create_dataset('./training.csv', 100000, vocabulary=True)
-    create_dataset('./validation.csv', 500)
+    create_dataset('./training.csv', 500000, vocabulary=True)
+    create_dataset('./validation.csv', 1000)
