@@ -41,9 +41,11 @@ class Vocabulary(object):
 
         integers = []
 
-        if self.padding and len(text) > self.padding:
+        if self.padding and len(characters) >= self.padding:
             # truncate if too long
-            text = text[:self.padding-1]
+            characters = characters[:self.padding - 1]
+
+        characters.append('<eot>')
 
         for c in characters:
             if c in self.vocabulary:
@@ -51,13 +53,27 @@ class Vocabulary(object):
             else:
                 integers.append(self.vocabulary['<unk>'])
 
-        integers.append(self.vocabulary['<eot>'])
 
         # pad:
         if self.padding and len(integers) < self.padding:
             integers.extend([self.vocabulary['<unk>']]
-                            * (self.padding - len(text) - 1))
+                            * (self.padding - len(integers)))
+
+        if len(integers) != self.padding:
+            print(text)
+            raise AttributeError('Length of text was not padding.')
         return integers
+
+    def int_to_string(self, integers):
+        """
+            Decodes a list of integers
+            into it's string representation
+        """
+        text = []
+        for i in integers:
+            text.append(self.reverse_vocabulary[i])
+
+        return ''.join(text)
 
 
 class Data(object):
@@ -98,11 +114,14 @@ class Data(object):
             map(self.input_vocabulary.string_to_int, self.inputs)))
         self.targets = map(self.output_vocabulary.string_to_int, self.targets)
         self.targets = np.array(
-                            list(map(
-                                lambda x: to_categorical(
-                                                x,
-                                                num_classes=self.output_vocabulary.size()),
-                                self.targets)))
+            list(map(
+                lambda x: to_categorical(
+                    x,
+                    num_classes=self.output_vocabulary.size()),
+                self.targets)))
+
+        assert len(self.inputs.shape) == 2, 'Inputs could not properly be encoded'
+        assert len(self.targets.shape) == 3, 'Targets could not properly be encoded'
 
     def generator(self, batch_size):
         """
@@ -112,9 +131,14 @@ class Data(object):
         """
         instance_id = range(len(self.inputs))
         while True:
-            batch_ids = random.sample(instance_id, batch_size)
-            yield (np.array(self.inputs[batch_ids, :]),
-                   np.array(self.targets[batch_ids, :, :]))
+            try:
+                batch_ids = random.sample(instance_id, batch_size)
+                yield (np.array(self.inputs[batch_ids], dtype=int),
+                       np.array(self.targets[batch_ids]))
+            except Exception as e:
+                print('EXCEPTION OMG')
+                print(e)
+                yield None, None
 
 if __name__ == '__main__':
     input_vocab = Vocabulary('./human_vocab.json', padding=50)
@@ -122,8 +146,11 @@ if __name__ == '__main__':
     ds = Data('./fake.csv', input_vocab, output_vocab)
     ds.load()
     ds.transform()
+    print(ds.inputs.shape)
+    print(ds.targets.shape)
     g = ds.generator(32)
-
+    print(ds.inputs[[5,10, 12]].shape)
+    print(ds.targets[[5,10,12]].shape)
     # for i in range(50):
     #     print(next(g)[0].shape)
     #     print(next(g)[1].shape)
