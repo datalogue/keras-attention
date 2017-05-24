@@ -5,7 +5,7 @@ from keras.layers import Dense, Embedding, Activation, Permute
 from keras.layers import Input, Flatten, Dropout
 from keras.layers.recurrent import LSTM
 from keras.layers.wrappers import TimeDistributed, Bidirectional
-from custom_recurrents import AttentionDecoder
+from .custom_recurrents import AttentionDecoder
 
 
 def simpleNMT(pad_length=100,
