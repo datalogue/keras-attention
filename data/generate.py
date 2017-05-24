@@ -38,6 +38,8 @@ FORMATS = ['short',
            'dd.MM.YY',
            ]
 
+# change this if you want it to work with only a single language
+# LOCALES = ['en_US']
 LOCALES = babel.localedata.locale_identifiers()
 
 
@@ -57,6 +59,13 @@ def create_date():
         human = format_date(dt,
                             format=random.choice(FORMATS),
                             locale=random.choice(LOCALES))
+
+        case_change = random.randint(0,3) # 1/2 chance of case change
+        if case_change == 1:
+            human = human.upper()
+        elif case_change == 2:
+            human = human.lower()
+
         machine = dt.isoformat()
     except AttributeError as e:
         print(e)
