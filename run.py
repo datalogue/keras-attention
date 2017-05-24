@@ -82,7 +82,7 @@ if __name__ == '__main__':
 
     named_args.add_argument('-e', '--epochs', metavar='|',
                             help="""Number of Epochs to Run""",
-                            required=False, default=10, type=int)
+                            required=False, default=50, type=int)
 
     named_args.add_argument('-g', '--gpu', metavar='|',
                             help="""GPU to use""",
