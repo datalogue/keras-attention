@@ -83,14 +83,14 @@ def create_dataset(dataset_name, n_examples, vocabulary=False):
                 human_vocab.update(tuple(h))
                 machine_vocab.update(tuple(m))
 
-    human_vocab.add('<unk>')
-    human_vocab.add('<eot>')
-    machine_vocab.add('<unk>')
-    machine_vocab.add('<eot>')
-
     if vocabulary:
         int2human = dict(enumerate(human_vocab))
+        int2human.update({len(int2human): '<unk>',
+                          len(int2human)+1: '<eot>'})
         int2machine = dict(enumerate(machine_vocab))
+        int2machine.update({len(int2machine):'<unk>',
+                            len(int2machine)+1:'<eot>'})
+
         human2int = {v: k for k, v in int2human.items()}
         machine2int = {v: k for k, v in int2machine.items()}
 
