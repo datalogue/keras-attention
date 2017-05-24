@@ -69,11 +69,11 @@ class Vocabulary(object):
             Decodes a list of integers
             into it's string representation
         """
-        text = []
+        characters = []
         for i in integers:
-            text.append(self.reverse_vocabulary[i])
+            characters.append(self.reverse_vocabulary[i])
 
-        return ''.join(text)
+        return characters
 
 
 class Data(object):

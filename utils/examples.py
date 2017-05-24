@@ -12,7 +12,7 @@ def run_examples(model, input_vocabulary, output_vocabulary, examples=EXAMPLES):
     predicted = []
     for example in examples:
         print('~~~~~')
-        predicted.append(run_example(model, input_vocabulary, output_vocabulary, example))
+        predicted.append(''.join(run_example(model, input_vocabulary, output_vocabulary, example)))
         print('input:',example)
         print('output:',predicted[-1])
     return predicted
