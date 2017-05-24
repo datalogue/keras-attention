@@ -68,7 +68,7 @@ def create_date():
 
         machine = dt.isoformat()
     except AttributeError as e:
-        print(e)
+        # print(e)
         return None, None, None
 
     return human, machine, dt
@@ -109,5 +109,7 @@ def create_dataset(dataset_name, n_examples, vocabulary=False):
             json.dump(machine2int, f)
 
 if __name__ == '__main__':
+    print('creating dataset')
     create_dataset('./training.csv', 500000, vocabulary=True)
     create_dataset('./validation.csv', 1000)
+    print('dataset created.')
