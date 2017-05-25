@@ -51,19 +51,23 @@ class Visualizer(object):
         predicted_text = run_example(
             self.pred_model, self.input_vocab, self.output_vocab, text)
 
+        text_ = list(text) + ['<eot>'] + ['<unk>'] * self.input_vocab.padding
         # get the lengths of the string
-        input_length = len(text)+5
+        input_length = len(text)+1
+        output_length = predicted_text.index('<eot>')+1
         # get the activation map
         activation_map = np.squeeze(self.proba_model.predict(np.array([d])))[
-            0:input_length, 0:input_length]
+            0:output_length, 0:input_length]
 
         plt.clf()
-        plt.imshow(activation_map, interpolation='nearest', cmap='gray')
-        plt.yticks(range(input_length), predicted_text[:input_length])
-        plt.xticks(range(input_length), text)
+        plt.imshow(activation_map, interpolation='nearest')
+        plt.legend(loc='best')
+        plt.yticks(range(output_length), predicted_text[:output_length])
+        plt.xticks(range(input_length), text_[:input_length], rotation=45)
         plt.xlabel('Input Sequence')
         plt.ylabel('Output Sequence')
-        plt.savefig('./attention_maps/'+text.replace('/', '')+'.pdf')
+        plt.grid()
+        plt.savefig('./attention_maps/'+text.replace('/', '')+'.pdf', bbox_inches='tight')
 
 
 def main(examples, args):
