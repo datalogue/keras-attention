@@ -16,7 +16,7 @@ git clone https://github.com/datalogue/keras-attention.git
 (You can skip this step if you have all the requirements already installed)
 
 ```
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 
 ## Creating the dataset
