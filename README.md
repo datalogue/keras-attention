@@ -1,6 +1,6 @@
 # Attention RNNs in Keras
 
-Implementation and visualization of a custom Attention RNN layer in Keras for translating dates.
+Implementation and visualization of a custom RNN layer with attention in Keras for translating dates.
 
 ## Setting up the repository
 
@@ -15,9 +15,18 @@ git clone https://github.com/datalogue/keras-attention.git
 2. Install the requirements
 (You can skip this step if you have all the requirements already installed)
 
+We would recommend using GPU's otherwise training might be prohbitively slow:
+
+```
+pip install -r requirements-gpu.txt
+```
+
+If you do not have a GPU or want to prototype on your local machine:
+
 ```
 pip install -r requirements.txt
 ```
+
 
 ## Creating the dataset
 
