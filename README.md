@@ -85,6 +85,18 @@ named arguments:
 
 The default `padding` parameters correspond between `run.py` and `visualize.py` and therefore, if you change this make sure to note it. You must supply the path to the weights you want to use and an example/file of examples. An example file is provided in `utils/examples.txt`. 
 
+### Example visualizations
+
+Here are some example visuals you can obtain:
+
+![image](https://user-images.githubusercontent.com/6295292/26899949-bbac0c7c-4b9e-11e7-84d6-c2f31166af07.png)
+
+*The model has learned that “Saturday” has no predictive value!*
+
+![image](https://user-images.githubusercontent.com/6295292/26899993-dd40e416-4b9e-11e7-99ec-71d536832347.png)
+
+*We can see the weirdly formatted date “January 2016 5” is incorrectly translated as 2016–01–02 where the “02” comes from the “20” in 2016*
+
 ### Help
 
 Start an issue if you find a bug or would like to contribute!
