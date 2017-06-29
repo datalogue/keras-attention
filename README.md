@@ -2,6 +2,8 @@
 
 Implementation and visualization of a custom RNN layer with attention in Keras for translating dates.
 
+This repository comes with a tutorial found here: https://medium.com/datalogue/attention-in-keras-1892773a4f22
+
 ## Setting up the repository
 
 0. Make sure you have Python 3.4+ installed.
