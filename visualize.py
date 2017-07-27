@@ -21,16 +21,23 @@ if not os.path.exists('./attention_maps/'):
 
 class Visualizer(object):
 
-    def __init__(self, padding=None):
+    def __init__(self,
+                 padding=None,
+                 input_vocab='./data/sample_human_vocab.json',
+                 output_vocab='./data/sample_machine_vocab.json'):
         """
             Visualizes attention maps
             :param padding: the padding to use for the sequences.
+            :param input_vocab: the location of the input human
+                                vocabulary file
+            :param output_vocab: the location of the output 
+                                 machine vocabulary file
         """
         self.padding = padding
         self.input_vocab = Vocabulary(
-            './data/human_vocab.json', padding=padding)
+            input_vocab, padding=padding)
         self.output_vocab = Vocabulary(
-            './data/machine_vocab.json', padding=padding)
+            output_vocab, padding=padding)
 
     def set_models(self, pred_model, proba_model):
         """
@@ -94,7 +101,9 @@ def main(examples, args):
     print('Total Number of Examples:', len(examples))
     weights_file = os.path.expanduser(args.weights)
     print('Weights loading from:', weights_file)
-    viz = Visualizer(padding=args.padding)
+    viz = Visualizer(padding=args.padding,
+                     input_vocab=args.human_vocab,
+                     output_vocab=args.machine_vocab)
     print('Loading models')
     pred_model = simpleNMT(trainable=False,
                            pad_length=args.padding,
@@ -127,16 +136,29 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     named_args = parser.add_argument_group('named arguments')
 
-    named_args.add_argument('-w', '--weights', metavar='|',
-                            help="""Location of weights""",
-                            required=True)
     named_args.add_argument('-e', '--examples', metavar='|',
                             help="""Example string/file to visualize attention map for
                                     If file, it must end with '.txt'""",
                             required=True)
+
+    named_args.add_argument('-w', '--weights', metavar='|',
+                            help="""Location of weights""",
+                            required=False,
+                            default='./weights/sample_NMT.49.0.01.hdf5')
+
     named_args.add_argument('-p', '--padding', metavar='|',
                             help="""Length of padding""",
                             required=False, default=50, type=int)
+    named_args.add_argument('-hv', '--human-vocab', metavar='|',
+                            help="""Length of padding""",
+                            required=False,
+                            default='./data/sample_human_vocab.json',
+                            type=str)
+    named_args.add_argument('-mv', '--machine-vocab', metavar='|',
+                            help="""Length of padding""",
+                            required=False,
+                            default='./data/sample_machine_vocab.json',
+                            type=str)
     args = parser.parse_args()
 
     if '.txt' in args.examples:
