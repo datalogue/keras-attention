@@ -12,6 +12,9 @@
 """
 import random
 import json
+import os
+
+DATA_FOLDER = os.path.realpath(os.path.join(os.path.realpath(__file__), '..'))
 
 from faker import Faker
 import babel
@@ -103,13 +106,14 @@ def create_dataset(dataset_name, n_examples, vocabulary=False):
         human2int = {v: k for k, v in int2human.items()}
         machine2int = {v: k for k, v in int2machine.items()}
 
-        with open('./human_vocab.json', 'w') as f:
+        with open(os.path.join(DATA_FOLDER, 'human_vocab.json'), 'w') as f:
             json.dump(human2int, f)
-        with open('./machine_vocab.json', 'w') as f:
+        with open(os.path.join(DATA_FOLDER, 'machine_vocab.json'), 'w') as f:
             json.dump(machine2int, f)
 
 if __name__ == '__main__':
     print('creating dataset')
-    create_dataset('./training.csv', 500000, vocabulary=True)
-    create_dataset('./validation.csv', 1000)
+    create_dataset(os.path.join(DATA_FOLDER, 'training.csv'), 500000,
+                   vocabulary=True)
+    create_dataset(os.path.join(DATA_FOLDER, 'validation.csv'), 1000)
     print('dataset created.')
