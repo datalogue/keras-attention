@@ -17,7 +17,7 @@ git clone https://github.com/datalogue/keras-attention.git
 2. Install the requirements
 (You can skip this step if you have all the requirements already installed)
 
-We would recommend using GPU's otherwise training might be prohbitively slow:
+We recommend using GPU's otherwise training might be prohbitively slow:
 
 ```
 pip install -r requirements-gpu.txt
@@ -70,22 +70,26 @@ All parameters have default values, so if you want to just run it, you can type 
 
 ## Visualizing Attention
 
-You can use the script `visualize.py` to visualize the data. Run with the `-h` argument to see what is accepted:
+You can use the script `visualize.py` to visualize the attention map. We have provided sample weights and vocabularies in `data/` and `weights/` so that this script can run automatically using just an example. Run with the `-h` argument to see what is accepted:
 
 ```
-usage: visualize.py [-h] -w | -e | [-p |]
+usage: visualize.py [-h] -e | [-w |] [-p |] [-hv |] [-mv |]
 
 optional arguments:
-  -h, --help          show this help message and exit
+  -h, --help            show this help message and exit
 
 named arguments:
-  -w |, --weights |   Location of weights
-  -e |, --examples |  Example string/file to visualize attention map for If
-                      file, it must end with '.txt'
-  -p |, --padding |   Length of padding
+  -e |, --examples |    Example string/file to visualize attention map for If
+                        file, it must end with '.txt'
+  -w |, --weights |     Location of weights
+  -p |, --padding |     Length of padding
+  -hv |, --human-vocab |
+                        Path to the human vocabulary
+  -mv |, --machine-vocab |
+                        Path to the machine vocabulary
 ```
 
-The default `padding` parameters correspond between `run.py` and `visualize.py` and therefore, if you change this make sure to note it. You must supply the path to the weights you want to use and an example/file of examples. An example file is provided in `utils/examples.txt`. 
+The default `padding` parameters correspond between `run.py` and `visualize.py` and therefore, if you change this make sure to note it. You must supply the path to the weights you want to use and an example/file of examples. An example file is provided in `examples.txt`. 
 
 ### Example visualizations
 
