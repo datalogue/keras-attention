@@ -13,7 +13,6 @@
 import random
 import json
 import os
-import os
 
 DATA_FOLDER = os.path.realpath(os.path.join(os.path.realpath(__file__), '..'))
 
