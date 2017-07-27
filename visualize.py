@@ -9,22 +9,26 @@ from models.NMT import simpleNMT
 from utils.examples import run_example
 from data.reader import Vocabulary
 
+HERE = os.path.realpath(os.path.join(os.path.realpath(__file__), '..'))
 
 def load_examples(file_name):
     with open(file_name) as f:
         return [s.replace('\n', '') for s in f.readlines()]
 
 # create a directory if it doesn't already exist
-if not os.path.exists('./attention_maps/'):
-    os.makedirs('./attention_maps/')
+if not os.path.exists(os.path.join(HERE, 'attention_maps')):
+    os.makedirs(os.path.join(HERE, 'attention_maps'))
 
+SAMPLE_HUMAN_VOCAB = os.path.join(HERE, 'data', 'sample_human_vocab.json')
+SAMPLE_MACHINE_VOCAB = os.path.join(HERE, 'data', 'sample_machine_vocab.json')
+SAMPLE_WEIGHTS = os.path.join(HERE, 'weights', 'sample_NMT.49.0.01.hdf5')
 
 class Visualizer(object):
 
     def __init__(self,
                  padding=None,
-                 input_vocab='./data/sample_human_vocab.json',
-                 output_vocab='./data/sample_machine_vocab.json'):
+                 input_vocab=SAMPLE_HUMAN_VOCAB,
+                 output_vocab=SAMPLE_MACHINE_VOCAB):
         """
             Visualizes attention maps
             :param padding: the padding to use for the sequences.
@@ -94,7 +98,7 @@ class Visualizer(object):
         ax.grid()
         # ax.legend(loc='best')
 
-        f.savefig('./attention_maps/'+text.replace('/', '')+'.pdf', bbox_inches='tight')
+        f.savefig(os.path.join(HERE, 'attention_maps', text.replace('/', '')+'.pdf'), bbox_inches='tight')
         f.show()
 
 def main(examples, args):
@@ -140,24 +144,22 @@ if __name__ == '__main__':
                             help="""Example string/file to visualize attention map for
                                     If file, it must end with '.txt'""",
                             required=True)
-
     named_args.add_argument('-w', '--weights', metavar='|',
                             help="""Location of weights""",
                             required=False,
-                            default='./weights/sample_NMT.49.0.01.hdf5')
-
+                            default=SAMPLE_WEIGHTS)
     named_args.add_argument('-p', '--padding', metavar='|',
                             help="""Length of padding""",
                             required=False, default=50, type=int)
     named_args.add_argument('-hv', '--human-vocab', metavar='|',
                             help="""Length of padding""",
                             required=False,
-                            default='./data/sample_human_vocab.json',
+                            default=SAMPLE_HUMAN_VOCAB,
                             type=str)
     named_args.add_argument('-mv', '--machine-vocab', metavar='|',
                             help="""Length of padding""",
                             required=False,
-                            default='./data/sample_machine_vocab.json',
+                            default=SAMPLE_MACHINE_VOCAB,
                             type=str)
     args = parser.parse_args()
 
