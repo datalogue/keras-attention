@@ -152,12 +152,12 @@ if __name__ == '__main__':
                             help="""Length of padding""",
                             required=False, default=50, type=int)
     named_args.add_argument('-hv', '--human-vocab', metavar='|',
-                            help="""Length of padding""",
+                            help="""Path to the human vocabulary""",
                             required=False,
                             default=SAMPLE_HUMAN_VOCAB,
                             type=str)
     named_args.add_argument('-mv', '--machine-vocab', metavar='|',
-                            help="""Length of padding""",
+                            help="""Path to the machine vocabulary""",
                             required=False,
                             default=SAMPLE_MACHINE_VOCAB,
                             type=str)
