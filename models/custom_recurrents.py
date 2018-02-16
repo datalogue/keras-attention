@@ -1,8 +1,9 @@
 import tensorflow as tf
 from keras import backend as K
 from keras import regularizers, constraints, initializers, activations
-from keras.layers.recurrent import Recurrent, _time_distributed_dense
+from keras.layers.recurrent import Recurrent
 from keras.engine import InputSpec
+from .tdd import _time_distributed_dense
 
 tfPrint = lambda d, T: tf.Print(input_=T, data=[T, tf.shape(T)], message=d)
 
