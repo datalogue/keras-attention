@@ -1,3 +1,5 @@
+**Status: Reference code only. No updates expected.**
+
 # Attention RNNs in Keras
 
 Implementation and visualization of a custom RNN layer with attention in Keras for translating dates.
@@ -105,9 +107,7 @@ Here are some example visuals you can obtain:
 
 ### Help
 
-Start an issue if you find a bug or would like to contribute!
-
-For other matters, you can contact [@zafarali](http://www.github.com/zafarali) at zaf@datalogue.io or us directly contact@datalogue.io 
+Start an issue and we will do our best to help!
 
 
 ### Acknowledgements
