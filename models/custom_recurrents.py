@@ -218,10 +218,7 @@ class AttentionDecoder(Recurrent):
 
         # from keras.layers.recurrent to initialize a vector of (batchsize,
         # output_dim)
-        y0 = K.zeros_like(inputs)  # (samples, timesteps, input_dims)
-        y0 = K.sum(y0, axis=(1, 2))  # (samples, )
-        y0 = K.expand_dims(y0)  # (samples, 1)
-        y0 = K.tile(y0, [1, self.output_dim])
+        y0 = K.zeros((inputs.get_shape()[0], self.output_dim))  # (samples, timesteps, input_dims)
 
         return [y0, s0]
 
